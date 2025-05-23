@@ -1,0 +1,139 @@
+set preview
+
+# Basic Settings
+#set hidden true
+set ignorecase true
+set icons true
+set sixel true
+set rulerfmt "\033[7;36m %d \033[0m |\033[1;33m %a \033[0m |\033[1;32m %p \033[0m |\033[1;31m %m \033[0m |\033[1;34m %c \033[0m |\033[1;35m %s \033[0m |\033[1;36m %f \033[0m | \033[1;37m%i/%t\033[0m"
+
+# Custom Functions
+cmd mkdir ${{
+  printf "Directory Name: "
+  read ans
+  mkdir $ans
+}}
+
+cmd mkfile ${{
+  printf "File Name: "
+  read ans
+  $EDITOR $ans
+}}
+
+
+
+# Archive bindings
+cmd unarchive ${{
+  case "$f" in
+      *.zip) unzip "$f" ;;
+      *.rar) unrar x "$f" ;;
+      *.tar.gz) tar -xzvf "$f" ;;
+      *.tar.bz2) tar -xjvf "$f" ;;
+      *.tar) tar -xvf "$f" ;;
+      *.7z) 7z e "$f" ;;
+      *) echo "Unsupported format" ;;
+  esac
+}}
+
+# Trash bindings
+cmd trash ${{
+  for f in $fx; do
+    trash put "$f"
+  done
+}}
+
+
+cmd empty_trash ${{
+  trash empty
+}}
+
+
+cmd list_trash ${{
+  trash list | batcat --paging=always --style=plain
+}}
+
+
+
+cmd restore_trash ${{
+  trash restore "$@"
+}}
+
+cmd open &{{
+	case $(file --mime-type -Lb $f) in
+		text/*) lf -remote "send $id \$nvim \$fx";;
+		*) xdg-open "$f"
+	esac
+}}
+
+
+
+cmd on-select &{{
+    lf -remote "send $id set statfmt \"$(exa -ld --color=always "$f")\""
+}}
+
+cmd fzf_jump ${{
+    res="$(
+        find . -type d |
+        fzf --reverse --header='Jump to directory' \
+            --preview 'exa --tree --level=2 --color=always --icons {}' \
+            --preview-window=right:60%
+    )"
+    [ -n "$res" ] && lf -remote "send $id cd \"$res\""
+}}
+map f :fzf_jump
+
+
+.cmd z-jump ${{
+  ZLUA_SCRIPT="$ZDOTDIR/plugins/z.lua/z.lua"
+  lf -remote "send ${id} cd \"$($ZLUA_SCRIPT -e $@ | sed 's/\\/\\\\/g;s/"/\\"/g')\""
+}}
+#map Z push :z-jump<space>-I<space>
+#map zb push :z-jump<space>-b<space>
+#map zz push :z-jump<space>
+
+#search bind with fzf
+
+#nano bind
+
+#vim bind
+
+# Bindings
+map c
+map d
+map m
+map n
+map v
+map t
+
+map co $code "$f"
+#map cf $dotbare fadd -f
+
+map au unarchive
+#map ae $wine "$f"
+
+# Basic Functions
+map . set hidden!
+map dd trash
+map tr restore_trash
+map tl list_trash
+map te empty_trash
+map p paste
+map x cut
+map y copy
+map <enter> open
+map R reload
+map mf mkfile
+map md mkdir
+#map C clear
+map <c-c> clear
+
+
+# Movement
+map gc cd ~/.config
+map gD cd ~/Documentos
+map gd cd ~/Downloads
+map gp cd ~/Imagens
+map gr cd ~/repositorios
+map gv cd ~/Vídeos
+map gs cd ~/.local/bin
+map gt cd ~/.local/share/Trash/files

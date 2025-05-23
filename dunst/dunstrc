@@ -1,0 +1,36 @@
+[global]
+    font = JetBrainsMono Nerd Font 10
+    background = "#1e1e2e"  # Catppuccin mocha background
+    foreground = "#cdd6f4"  # texto claro
+    transparency = 10
+    width = 320
+    offset = 10x50
+    padding = 12
+    horizontal_padding = 12
+    corner_radius = 8
+    separator_color = "#313244"
+    separator_height = 2
+    frame_width = 0        # Sem outline
+    frame_color = "#000000"
+    word_wrap = yes
+    alignment = left
+    line_height = 0
+    browser = brave
+    icon_position = left
+    enable_recursive_icon_lookup = true
+    markup = full
+    format = "<b>%s</b>\n%b"
+    timeout = 5
+
+[urgency_low]
+    background = "#313244"  # tom mais escuro para baixo
+    foreground = "#89b4fa"  # azul pastel
+
+[urgency_normal]
+    background = "#1e1e2e"  # fundo padrão
+    foreground = "#cdd6f4"  # texto claro padrão
+
+[urgency_critical]
+    background = "#f38ba8"  # rosa claro para crítico
+    foreground = "#1e1e2e"  # texto escuro para contraste
+
