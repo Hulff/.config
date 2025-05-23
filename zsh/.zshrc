@@ -129,19 +129,19 @@ alias fetch="python3 ~/.config/anifetch/anifetch.py -ff -f ~/.config/anifetch/ex
 # Set up fzf key bindings and fuzzy completion
 nfzf() {
   local file
-  file=$(find . -type f -print | fzf --preview 'batcat --style=numbers --color=always --line-range=:100 {}' --preview-window=right:60%)
+  file=$(find . -type f -print | fzf --reverse  --preview 'batcat --style=numbers --color=always --line-range=:100 {}' --preview-window=right:60%)
   [[ -n "$file" ]] && nano "$file"
 }
 
 vfzf() {
   local file
-  file=$(find . -type f -print | fzf --preview 'batcat --style=numbers --color=always --line-range=:100 {}' --preview-window=right:60%)
+  file=$(find . -type f -print | fzf --reverse --preview 'batcat --style=numbers --color=always --line-range=:100 {}' --preview-window=right:60%)
   [[ -n "$file" ]] && vim "$file"
 }
 
 cfzf() {
   local dir
-  dir=$(find . -type d -not -path '*/.git*' | fzf --preview 'exa -a --icons --tree --level=1 --color=always {}' --preview-window=right:60%)
+  dir=$(find . -type d -not -path '*/.git*' | fzf --reverse  --preview 'exa -a --icons --tree --level=1 --color=always {}' --preview-window=right:60%)
   [[ -n "$dir" ]] && cd "$dir"
 }
 

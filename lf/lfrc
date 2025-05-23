@@ -71,16 +71,19 @@ cmd on-select &{{
     lf -remote "send $id set statfmt \"$(exa -ld --color=always "$f")\""
 }}
 
+# Comando para pular com fzf e fd
 cmd fzf_jump ${{
     res="$(
-        find . -type d |
-        fzf --reverse --header='Jump to directory' \
-            --preview 'exa --tree --level=2 --color=always --icons {}' \
-            --preview-window=right:60%
+        find . -type d -not -path '*/.git*' | \
+        fzf --reverse --preview 'exa -a --icons --tree --level=1 --color=always {}' \
+            --preview-window=right:60%)
     )"
-    [ -n "$res" ] && lf -remote "send $id cd \"$res\""
+    [ -n "$res" ] && lf -remote "send $id select \"$res\""
 }}
-map f :fzf_jump
+
+
+# Bind para Ctrl+f chamar o comando acima
+map F :fzf_jump
 
 
 .cmd z-jump ${{
