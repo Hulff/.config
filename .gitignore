@@ -32,3 +32,5 @@
 !polybar/
 !polybar-themes/** 
 !polybar-themes/
+!rofi/
+!rofi/**
