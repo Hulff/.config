@@ -1,0 +1,21 @@
+# Ignore everything
+*
+.gsd-keyboard.settings-ported/
+
+# But NOT these files (unignore them)
+!.gitignore
+!.zshrc
+!zsh/
+!.config/nvim/
+!hyfetch.json
+!alacritty/
+!kitty/
+!copyq/
+!flameshot/
+!i3/
+!lf/
+!anifetch/
+!dunst/
+!vlc/
+!picom.conf
+!mimeapps.list

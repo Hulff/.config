@@ -1,0 +1,19 @@
+{
+    "preset": "lunian",
+    "mode": "rgb",
+    "light_dark": "dark",
+    "lightness": 0.62,
+    "color_align": {
+        "mode": "custom",
+        "custom_colors": {
+            "1": 4,
+            "2": 0
+        },
+        "fore_back": []
+    },
+    "backend": "fastfetch",
+    "args": null,
+    "distro": null,
+    "pride_month_shown": [],
+    "pride_month_disable": false
+}
